@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [step, setSteps] = useState(1);
+  const [count, setCount] = useState(0);
+
+  function decreaseStep() {
+    if (step > 1) {
+      setSteps((s) => s - 1);
+    }
+  }
+
+  function increaseStep() {
+    setSteps((s) => s + 1);
+  }
+
+  const date = new Date();
+  date.setDate(date.getDate() + count);
+
+  function decreaseCount() {
+    setCount((c) => c - step);
+    date.setDate(date.getDate() + count);
+  }
+
+  function increaseCount() {
+    setCount((c) => c + step);
+    date.setDate(date.getDate() + count);
+  }
 
   return (
-    <>
+    <div>
+      <div>Date Counter</div>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <button onClick={() => decreaseStep()}>-</button>Steps : {step}
+        <button onClick={increaseStep}>+</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div>
+        <div>
+          <button onClick={decreaseCount}>-</button>Count : {count}
+          <button onClick={increaseCount}>+</button>
+        </div>
+        <h3>
+          <span>
+            {count === 0
+              ? "Today is "
+              : count > 0
+              ? `${count} Day from today is `
+              : `${Math.abs(count)} day ago was `}
+          </span>
+          <span>{date.toDateString()}</span>
+        </h3>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
