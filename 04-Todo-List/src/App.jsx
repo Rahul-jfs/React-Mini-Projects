@@ -19,6 +19,10 @@ export default function App() {
     }
   }
 
+  function handleDelete(delTask) {
+    setTasks((tasks) => tasks.filter((task) => task.id !== delTask.id));
+  }
+
   return (
     <div className="w-3/5 m-auto text-center ">
       <TitleOfApp />
@@ -30,7 +34,7 @@ export default function App() {
       {tasks.length === 0 ? (
         <h2 className="text-2xl font-semibold">Add tasks to list</h2>
       ) : (
-        <TodoList tasks={tasks} />
+        <TodoList tasks={tasks} onDelete={handleDelete} />
       )}
     </div>
   );
@@ -57,13 +61,16 @@ function FormInput({ taskInput, setTaskInput, onSubmit }) {
   );
 }
 
-function TodoList({ tasks }) {
+function TodoList({ tasks, onDelete }) {
   return (
     <ul className="w-2/3 m-auto">
       {tasks.map((task) => (
         <div className="flex justify-between m-2" key={task.id}>
           {task.taskName}
-          <button className="bg-red-600 text-white px-4 py-2 rounded-lg">
+          <button
+            className="bg-red-600 text-white px-4 py-2 rounded-lg"
+            onClick={() => onDelete(task)}
+          >
             Delete
           </button>
         </div>
