@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const initialItems = [
   { name: "one", id: 1 },
   { name: "two", id: 2 },
   { name: "three", id: 3 },
+  { name: "four", id: 4 },
   { name: "four", id: 4 },
 ];
 
